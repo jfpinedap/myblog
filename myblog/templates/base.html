@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %} - My Blog</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+              crossorigin="anonymous">
+
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css"
+              crossorigin="anonymous">
+
+        <link rel="stylesheet"
+              href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
+              crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
+
+        <script
+                src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+                crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/v4-shims.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+        <meta name="myblog-version" content="2020-12-04">
+
+        {% block head %} {% endblock %}
+
+    </head>
+
+    <nav>
+        <h1><a href="{{ url_for('index') }}">My Blog</a></h1>
+        <ul>
+            {% if g.user %}
+                <li><span>{{ g.user['username'] }}</span>
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a>
+                    {% else %}
+                        <li><a href="{{ url_for('auth.register') }}">Register</a>
+                            <li><a href="{{ url_for('auth.login') }}">Login</a>
+                            {% endif %}
+        </ul>
+    </nav>
+    <section class="content">
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </section>
+
+</html>
