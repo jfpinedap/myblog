@@ -37,12 +37,12 @@ Or on Windows cmd::
     $ py -3 -m venv venv
     $ venv\Scripts\activate.bat
 
-Install Flaskr::
+Install Myblog::
 
     $ pip install -e .
 
 Or if you are using the master branch, install Flask from source before
-installing Flaskr::
+installing Myblog::
 
     $ pip install -e ../..
     $ pip install -e .
@@ -53,14 +53,14 @@ Run
 
 ::
 
-    $ export FLASK_APP=flaskr
+    $ export FLASK_APP=myblog
     $ export FLASK_ENV=development
     $ flask init-db
     $ flask run
 
 Or on Windows cmd::
 
-    > set FLASK_APP=flaskr
+    > set FLASK_APP=myblog
     > set FLASK_ENV=development
     > flask init-db
     > flask run
