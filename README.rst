@@ -13,7 +13,7 @@ Users will be able to register, log in, create posts, edit or delete their own p
 Dependencies
 ------------
 
-Be sure ypu have installed this `dependencies`_.
+Be sure you have installed this `dependencies`_.
 
 .. _dependencies: https://flask.palletsprojects.com/en/1.1.x/installation/
 
