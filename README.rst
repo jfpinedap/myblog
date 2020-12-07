@@ -13,7 +13,7 @@ Users will be able to register, log in, create posts, edit or delete their own p
 Dependencies
 ------------
 
-Be sure ypu have installed this `dependencies`_.
+Be sure you have installed this `dependencies`_.
 
 .. _dependencies: https://flask.palletsprojects.com/en/1.1.x/installation/
 
@@ -37,12 +37,12 @@ Or on Windows cmd::
     $ py -3 -m venv venv
     $ venv\Scripts\activate.bat
 
-Install Flaskr::
+Install Myblog::
 
     $ pip install -e .
 
 Or if you are using the master branch, install Flask from source before
-installing Flaskr::
+installing Myblog::
 
     $ pip install -e ../..
     $ pip install -e .
@@ -53,14 +53,14 @@ Run
 
 ::
 
-    $ export FLASK_APP=flaskr
+    $ export FLASK_APP=myblog
     $ export FLASK_ENV=development
     $ flask init-db
     $ flask run
 
 Or on Windows cmd::
 
-    > set FLASK_APP=flaskr
+    > set FLASK_APP=myblog
     > set FLASK_ENV=development
     > flask init-db
     > flask run
