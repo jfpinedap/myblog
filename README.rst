@@ -23,10 +23,9 @@ Install
 
 Clone the repository ::
     
-    $ git clone 
-    $ cd flask
-    $ git checkout latest-tag-found-above
-    $ cd examples/tutorial
+    $ git clone https://github.com/jfpinedap/myblog.git
+    $ cd myblog
+    $ git checkout develop
 
 Create a virtualenv and activate it::
 
