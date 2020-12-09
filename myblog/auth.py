@@ -13,6 +13,8 @@ from werkzeug.security import generate_password_hash
 
 from myblog.db import get_db
 
+from myblog.form import LoginForm, RegistrationForm, ForgotForm
+
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
@@ -50,10 +52,11 @@ def register():
     Validates that the username or email are not already taken. Hashes the
     password for security.
     """
-    if request.method == "POST":
-        username = request.form["username"]
-        email = request.form["email"]
-        password = request.form["password"]
+    form = RegistrationForm(request.form)
+    if request.method == "POST" and form.validate():
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
         db = get_db()
         error = None
 
@@ -85,16 +88,21 @@ def register():
             return redirect(url_for("auth.login"))
 
         flash(error)
+    elif request.method == "POST" and not form.validate():
+        for field_name, field_errors in form.errors.items():
+            for error in field_errors:
+                flash(error, field_name.capitalize())
 
-    return render_template("auth/register.html")
+    return render_template("auth/register.html", form=form)
 
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
     """Login a registered user by adding the user id to the session."""
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+    form = LoginForm(request.form)
+    if request.method == "POST" and form.validate():
+        username = form.username.data
+        password = form.password.data
         db = get_db()
         error = None
         user = db.execute(
@@ -114,14 +122,15 @@ def login():
 
         flash(error)
 
-    return render_template("auth/login.html")
+    return render_template("auth/login.html", form=form)
 
 
 @bp.route("/forgot", methods=("GET", "POST"))
 def forgot():
     """Send an email if the user has forgotten the password or username by adding a registed email."""
-    if request.method == "POST":
-        email = request.form["email"]
+    form = ForgotForm(request.form)
+    if request.method == "POST" and form.validate():
+        email = form.email.data
         db = get_db()
         error = None
         user = db.execute(
@@ -141,8 +150,12 @@ def forgot():
             return redirect(url_for("index"))
 
         flash(error)
+    elif request.method == "POST" and not form.validate():
+        for field_name, field_errors in form.errors.items():
+            for error in field_errors:
+                flash(error, field_name.capitalize())
 
-    return render_template("auth/forgot.html")
+    return render_template("auth/forgot.html", form=form)
 
 
 @bp.route("/logout")

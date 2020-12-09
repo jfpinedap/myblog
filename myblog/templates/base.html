@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/v4-shims.css">
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -42,24 +42,35 @@
     </head>
 
     <nav>
-        <h1><a href="{{ url_for('index') }}">My Blog</a></h1>
+        <h1><a href="{{ url_for('index') }}">Blog List</a></h1>
         <ul>
             {% if g.user %}
-                <li><span>{{ g.user['username'] }}</span>
-                    <li><a href="{{ url_for('auth.logout') }}">Logout</a>
-                    {% else %}
-                        <li><a href="{{ url_for('auth.register') }}">Register</a>
-                            <li><a href="{{ url_for('auth.login') }}">Login</a>
-                            {% endif %}
+                <li><b>{{ g.user['username'] }}</b>
+                    <li>
+                        <a href="{{ url_for('auth.logout') }}" onclick="return confirm('Are you sure to Logout?');">
+                            Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.register') }}">Register</a>
+                        <li><a href="{{ url_for('auth.login') }}">Login</a>
+                        {% endif %}
         </ul>
     </nav>
     <section class="content">
         <header>
             {% block header %}{% endblock %}
         </header>
-        {% for message in get_flashed_messages() %}
-            <div class="flash">{{ message }}</div>
-        {% endfor %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for category, message in messages %}
+                        <div class="flash" color=#000000>
+                            <b>{{ category }}:</b> {{ message }}</div>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </section>
 

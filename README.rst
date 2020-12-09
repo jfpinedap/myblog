@@ -5,7 +5,7 @@ This app is based on the basic blog app built in the Flask `tutorial`_.
 
 .. _tutorial: https://flask.palletsprojects.com/tutorial/
 
-Users will be able to register, log in, create posts, edit or delete their own posts and comment the public posts.
+Users will be able to register, log in, create blogs, edit or delete their own blogs and comment the public blogs.
 
 .. contents:: Table of Contents
    :depth: 2

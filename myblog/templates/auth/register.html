@@ -1,41 +1,49 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
+    <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
     <div class="limiter">
-        <div class="container-">
-                <div class="text-center p-t-12">
-                    <form class="form" method="post">
-                        <p>
-                        <input class="input" type="text" id="username" name="username" placeholder="Username" required>
-                        <span class="symbol">
-                            <i class="fa fa-user"></i>
-                        </span>
-                        </p>
+        <div class="container-form">
+            <div class="text-center">
+                <form class="form" method="post">
+                    <p>
+                    {{ form.username(placeholder="Username") }}
+                    <span class="symbol">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    </p>
 
-                        <p>
-                        <input class="input" type="text" name="email" placeholder="Email" required>
-                        <span class="symbol">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
-                        </p>
+                    <p>
+                    {{ form.email(placeholder="Email") }}
+                    <span class="symbol">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                    </p>
 
-                        <p>
-                        <input class="input" type="password" name="password" id="password" placeholder="Password" required>
-                        <span class="symbol">
-                            <i class="far fa-eye" id="togglePassword" aria-hidden="true"></i>
-                        </span>
-                        <script src="/static/app.js"></script>
-                        </p>
+                    <p>
+                    {{ form.password(placeholder="Password") }}
+                    <span class="symbol">
+                        <i class="far fa-eye" id="togglePassword" aria-hidden="true"></i>
+                    </span>
+                    </p>
 
-                        <p>
-                        <input type="submit" class="btn btn-primary" value="Register" />
-                        </p>
-                    </form>
-                </div>
+                    <p>
+                    {{ form.confirm(placeholder="Confirm password") }}
+                    <span class="symbol">
+                        <i class="far fa-eye" id="toggleConfirm" aria-hidden="true"></i>
+                    </span>
+                    </p>
+                    <script src="/static/app.js"></script>
+
+                    <p>
+                    <input type="submit" class="btn btn-primary" value="Register" />
+                    </p>
+
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
