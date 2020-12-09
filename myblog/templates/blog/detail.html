@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Blog Detail{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <article class="blog-detail">
+        <h1>{{ blog['title'] }}
+            {% if g.user %}
+                <small> Posted by {{ blog['username'] }} on {{ blog['created'].strftime('%Y-%m-%d') }}</small>
+            {% endif %}
+        </h1>
+        <p>{{ blog['body'] }}</p>
+        </div>
+    {% endblock %}
