@@ -9,6 +9,10 @@
         <div class="container-form">
             <div class="text-center">
                 <form class="form" method="post">
+                    {{ form.csrf_token }}
+                    {% if form.csrf_token.errors %}
+                        <div class="warning">You have submitted an invalid CSRF token</div>
+                    {% endif %}
                     <p>
                     {{ form.username(placeholder="Username") }}
                     <span class="symbol">

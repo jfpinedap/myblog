@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Confirm Delete Comment{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="delete-form">
+        <div class="text-center">
+            <p>Are you sure you want to delete the Comment </p>
+            <p><i>{{ context['comment'] }}</i> ?</p>
+
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                {% if form.csrf_token.errors %}
+                    <div class="warning">You have submitted an invalid CSRF token</div>
+                {% endif %}
+                <p><input type="submit"  class="btn btn-primary" value="Yes, delete."></p>
+                <p><a href="{{ url_for("blog.detail", blog_id=context['blog_id']) }}" class="btn btn-primary">Cancel</a></p>
+            </form>
+        </div>
+    </div>
+{% endblock %}

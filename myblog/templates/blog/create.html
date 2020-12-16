@@ -6,6 +6,11 @@
 
 {% block content %}
     <form method="post">
+        {{ form.csrf_token }}
+        {% if form.csrf_token.errors %}
+            <div class="warning">You have submitted an invalid CSRF token</div>
+        {% endif %}
+        
         {{ form.title.label }}
         {{ form.title() }}
         {{ form.body.label }}

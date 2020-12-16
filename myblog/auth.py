@@ -52,7 +52,7 @@ def register():
     Validates that the username or email are not already taken. Hashes the
     password for security.
     """
-    form = RegistrationForm(request.form)
+    form = RegistrationForm(request.form, meta={'csrf_context': session})
     if request.method == "POST" and form.validate():
         username = form.username.data
         email = form.email.data
@@ -80,6 +80,13 @@ def register():
         if error is None:
             # the name and email is available, store it in the database and go to
             # the login page
+
+            """
+            Here the salting technique is used to hash the password using 
+            the method pbkdf2:sha256 with salt length = 8 that is the default 
+            values of the werkzeug.security.generate_password_hash method 
+            as you can see in https://werkzeug.palletsprojects.com/en/1.0.x/utils/
+            """
             db.execute(
                 "INSERT INTO user (username, email, password) VALUES (?, ?, ?)",
                 (username, email, generate_password_hash(password)),
@@ -99,7 +106,7 @@ def register():
 @bp.route("/login", methods=("GET", "POST"))
 def login():
     """Login a registered user by adding the user id to the session."""
-    form = LoginForm(request.form)
+    form = LoginForm(request.form, meta={'csrf_context': session})
     if request.method == "POST" and form.validate():
         username = form.username.data
         password = form.password.data
@@ -128,7 +135,7 @@ def login():
 @bp.route("/forgot", methods=("GET", "POST"))
 def forgot():
     """Send an email if the user has forgotten the password or username by adding a registed email."""
-    form = ForgotForm(request.form)
+    form = ForgotForm(request.form, meta={'csrf_context': session})
     if request.method == "POST" and form.validate():
         email = form.email.data
         db = get_db()
