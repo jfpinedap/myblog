@@ -133,6 +133,16 @@ nav ul li a, nav ul li b, header .action {
   color: #65676e;
 }
 
+.blog-detail div {
+  font-size: 1.1em;
+  color: #030c2e;
+  background: #7f919c;
+  min-height: 7em;
+  width: 100%;
+  outline: none;
+  padding: 10px;
+}
+
 .blog .body {
   white-space: pre-line;
 }
@@ -190,5 +200,33 @@ input[type=submit] {
 
 .container-form span[class=txt1] {
   font-size: 1.5em;
+  color: #f15209;
+}
+
+.comments p {
+  font-size: 1.2em;
+  color: #f5f5f8;
+}
+
+.comments i {
+  font-size: 1.7em;
+  color: #0e21cc;
+}
+
+.comments u {
+  font-size: 0.9em;
+  color: #5061a0;
+}
+
+.delete-form p {
+  font-size: 1.5em;
+  color: #f5f5f8;
+}
+
+.delete-form a {
+  width: 14%;
+}
+
+.delete-form i {
   color: #f15209;
 }

@@ -1,9 +1,24 @@
+import secrets
+from datetime import timedelta
+from wtforms.csrf.session import SessionCSRF
 from wtforms import (
     Form, BooleanField, StringField, validators, PasswordField,
-    TextAreaField
+    TextAreaField, IntegerField
 )
 
-class RegistrationForm(Form):
+
+SECRET_TOKEN = secrets.token_bytes(16)
+
+
+class MyBaseForm(Form):
+    class Meta:
+        csrf = True
+        csrf_class = SessionCSRF
+        csrf_secret = SECRET_TOKEN
+        csrf_time_limit = timedelta(minutes=30)
+
+
+class RegistrationForm(MyBaseForm):
     username = StringField(
         label='Username',
         validators=[
@@ -29,7 +44,8 @@ class RegistrationForm(Form):
     )
     confirm = PasswordField('Repeat password')
 
-class LoginForm(Form):
+
+class LoginForm(MyBaseForm):
     username = StringField(
         label='Username',
         validators=[
@@ -43,7 +59,8 @@ class LoginForm(Form):
         ]
     )
 
-class ForgotForm(Form):
+
+class ForgotForm(MyBaseForm):
     email = StringField(
         label='Email',
         validators=[
@@ -53,7 +70,8 @@ class ForgotForm(Form):
         ]
     )
 
-class CreateBlogForm(Form):
+
+class CreateBlogForm(MyBaseForm):
     title = StringField(
         label='Title',
         validators=[
@@ -70,3 +88,21 @@ class CreateBlogForm(Form):
     public = BooleanField(
         label='Public'
     )
+
+
+class CreateCommentForm(MyBaseForm):
+    text = StringField(
+        label='Text',
+        validators=[
+            validators.Length(min=4, max=125),
+            validators.InputRequired()
+        ]
+    )
+
+
+class DeleteBlogForm(MyBaseForm):
+    pass
+
+
+class DeleteCommentForm(MyBaseForm):
+    pass
