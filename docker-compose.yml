@@ -4,12 +4,12 @@ volumes:
   production_static: {}
 
 services:
-  flask: &flask
-    container_name: myblog_local_flask
+  production_flask: &flask
+    container_name: myblog_production_flask
     build:
       context: .
       dockerfile: ./compose/flask/Dockerfile
-    image: myblog_local_flask
+    image: myblog_production_flask
     volumes:
       - production_static:/app/myblog/static 
     ports:

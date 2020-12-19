@@ -1,15 +1,23 @@
-upstream flask{
+upstream production_flask{
     ip_hash;
-    server flask:5000;
+    server production_flask:5000;
 }
 
 server{
-    listen 80;
     server_name 54.174.253.96;
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+
+server{
+    server_name 54.174.253.96;
+    listen 443 ssl;
 
     # ssl on;
-    # ssl_certificate /ssl/.dominio_wildcard.crt;
-    # ssl_certificate_key /ssl/.dominio_wildcard.key;
+    ssl_certificate /ssl/.myblogwildcard.crt;
+    ssl_certificate_key /ssl/.myblogwildcard.key;
+
+    client_max_body_size 25M;
 
     location /static {
 	    autoindex on;
@@ -26,7 +34,7 @@ server{
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_pass http://flask/;
+        proxy_pass http://production_flask/;
         proxy_read_timeout 3600;
     }
 }
