@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  flask: &flask
+    container_name: myblog_local_flask
+    build:
+      context: .
+      dockerfile: ./compose/flask/Dockerfile
+    image: myblog_local_flask
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    command: /start
+    restart: always
+
+  nginx:
+    container_name: myblog_nginx
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    volumes:
+      - ./ssl/:/ssl
+    ports:
+      - "801:80"
+    depends_on:
+      - flask
+    restart: always
