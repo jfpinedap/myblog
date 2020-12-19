@@ -1,6 +1,6 @@
 upstream production_flask{
     ip_hash;
-    server production_flask:8000;
+    server production_flask:5000;
 }
 
 server{
