@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  production_static: {}
+
 services:
   flask: &flask
     container_name: myblog_local_flask
@@ -8,9 +11,9 @@ services:
       dockerfile: ./compose/flask/Dockerfile
     image: myblog_local_flask
     volumes:
-      - .:/app
+      - production_static:/app/myblog/static 
     ports:
-      - "5000:5000"
+      - "5000"
     command: /start
     restart: always
 
@@ -20,9 +23,10 @@ services:
       context: .
       dockerfile: ./compose/nginx/Dockerfile
     volumes:
+      - production_static:/static
       - ./ssl/:/ssl
     ports:
-      - "801:80"
+      - "80:80"
     depends_on:
       - flask
     restart: always

@@ -1,11 +1,11 @@
-upstream production_flask{
+upstream flask{
     ip_hash;
-    server production_flask:5000;
+    server flask:5000;
 }
 
 server{
     listen 80;
-    server_name ec2-52-90-243-117.compute-1.amazonaws.com;
+    server_name 54.174.253.96;
 
     # ssl on;
     # ssl_certificate /ssl/.dominio_wildcard.crt;
@@ -26,7 +26,7 @@ server{
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_pass http://production_flask/;
+        proxy_pass http://flask/;
         proxy_read_timeout 3600;
     }
 }
