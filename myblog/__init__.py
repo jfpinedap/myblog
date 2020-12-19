@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask import send_from_directory
 
 
 def create_app(test_config=None):
@@ -42,5 +43,10 @@ def create_app(test_config=None):
     # app.route, while giving the blog blueprint a url_prefix, but for
     # the tutorial the blog will be the main index
     app.add_url_rule("/", endpoint="index")
+
+    @app.route('/favicon.ico')
+    def favicon():
+        return send_from_directory(os.path.join(app.root_path, 'static'),
+                              'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
     return app
