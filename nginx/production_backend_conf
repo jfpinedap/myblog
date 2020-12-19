@@ -1,5 +1,4 @@
 upstream production_flask{
-    ip_hash;
     server production_flask:5000;
 }
 
@@ -18,6 +17,23 @@ server{
     ssl_certificate_key /ssl/.myblogwildcard.key;
 
     client_max_body_size 25M;
+
+    gzip on;
+    gzip_disable 'msie6';
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.0;
+    gzip_types
+        text/plain
+        text/css
+        application/json
+        application/x-javascript
+        text/xml
+        application/xml
+        application/xml+rss
+        text/javascript;
 
     location /static {
 	    autoindex on;
