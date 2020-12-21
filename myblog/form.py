@@ -74,7 +74,7 @@ class CreateBlogForm(MyBaseForm):
     title = StringField(
         label='Title',
         validators=[
-            validators.Length(min=4, max=25),
+            validators.Length(min=4, max=50),
             validators.InputRequired()
         ]
     )
@@ -93,7 +93,7 @@ class CreateCommentForm(MyBaseForm):
     text = StringField(
         label='Text',
         validators=[
-            validators.Length(min=4, max=125),
+            validators.Length(min=4, max=255),
             validators.InputRequired()
         ]
     )

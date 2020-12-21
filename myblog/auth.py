@@ -54,7 +54,7 @@ def register():
     """
     form = RegistrationForm(request.form, meta={'csrf_context': session})
     if request.method == "POST" and form.validate():
-        username = form.username.data
+        username = form.username.data.lower()
         email = form.email.data
         password = form.password.data
         db = get_db()
@@ -108,7 +108,7 @@ def login():
     """Login a registered user by adding the user id to the session."""
     form = LoginForm(request.form, meta={'csrf_context': session})
     if request.method == "POST" and form.validate():
-        username = form.username.data
+        username = form.username.data.lower()
         password = form.password.data
         db = get_db()
         error = None
