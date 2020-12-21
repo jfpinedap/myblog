@@ -6,8 +6,7 @@ from wtforms import (
     TextAreaField, IntegerField
 )
 
-
-SECRET_TOKEN = secrets.token_bytes(16)
+from myblog import SECRET_TOKEN
 
 
 class MyBaseForm(Form):

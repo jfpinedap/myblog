@@ -2,13 +2,14 @@ import os
 
 from flask import Flask
 
+SECRET_TOKEN = b'a2$\x80i9B\xc1\x8b5\xb6\xc1\xd8~\x99G'
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         # a default secret that should be overridden by instance config
-        SECRET_KEY="dev",
+        SECRET_KEY=SECRET_TOKEN,
         # store the database in the instance folder
         DATABASE=os.path.join(app.instance_path, "myblog.sqlite"),
     )
