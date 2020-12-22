@@ -46,17 +46,6 @@
     <nav>
         <h1><a href="{{ url_for('index') }}">Main Page</a></h1>
         <ul>
-            <div style="float:right">
-                <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-                <form>
-                  <a href="{{ url_for('index') }}"><i class="fa fa-undo"></i></a>
-                  <input type="text" placeholder="Search.." name="search"
-                  {% if search %} value="{{ search }}" {% endif %}
-                  >
-                  <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-            
             {% if g.user %}
                 <li><b>{{ g.user['username'] }}</b>
                     <li>

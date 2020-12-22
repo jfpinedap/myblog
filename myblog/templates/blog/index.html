@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block header %}
+
     <h1>{% block title %}Blogs{% endblock %}</h1>
-    {% if g.user %}
-        <a class="action" href="{{ url_for('blog.create') }}">Create Blog</a>
-    {% endif %}
+
+    <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+    <form>
+        {% if g.user %}
+            <a class="action-create" href="{{ url_for('blog.create') }}">Create Blog</a>
+        {% endif %}
+        <div class="search-text"><input type="text" placeholder="Search.." name="search"
+        {% if search %} value="{{ search }}" {% endif %}
+        ></div>
+        <div class="search-button"><button type="submit"><i class="fa fa-search"></i></button></div>
+        <div class="return"><a href="{{ url_for('index') }}"><i class="fa fa-undo"></i></a></div>
+    </form>
+
 {% endblock %}
 
 {% block content %}
+
     {% for blog in blogs %}
         <article class="blog">
             <a class="action" href="{{ url_for('blog.detail', blog_id=blog['id']) }}">{{ blog['title'] }}</a>

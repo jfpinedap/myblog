@@ -17,16 +17,32 @@ from myblog.form import (
 
 bp = Blueprint("blog", __name__)
 
-
-@bp.route("/")
+@bp.route("/", methods=("GET",))
 def index():
     """Show all the blogs, most recent first."""
+    search_val = request.args.get('search')
+
     db = get_db()
-    query_response = db.execute(
-        "SELECT p.id, title, body, updated, author_id, username, public"
-        " FROM blog p JOIN user u ON p.author_id = u.id"
-        " ORDER BY updated DESC"
-    ).fetchall()
+    if search_val:
+        print('search_val = ', search_val)
+        search_val_whatever = str('%' + search_val + '%')
+        query_response = db.execute(
+            " SELECT b.id, title, body, updated, author_id, username, public"
+            " FROM blog b INNER JOIN user u ON b.author_id = u.id"
+            " WHERE "
+            "     b.title LIKE ? ESCAPE \'\\\'"
+            "   OR "
+            "     b.body LIKE ? ESCAPE \'\\\'"
+            " ORDER BY updated DESC",
+            (search_val_whatever, search_val_whatever),
+        ).fetchall()
+    else:
+        print('search_val = ', search_val)
+        query_response = db.execute(
+            " SELECT b.id, title, body, updated, author_id, username, public"
+            " FROM blog b JOIN user u ON b.author_id = u.id"
+            " ORDER BY updated DESC"
+        ).fetchall()
 
     blogs = []
     for row in query_response:
@@ -39,7 +55,7 @@ def index():
 
         blogs.append(row)
 
-    return render_template("blog/index.html", blogs=blogs)
+    return render_template("blog/index.html", blogs=blogs, search=search_val)
 
 
 def get_blog(blog_id, check_author=True, check_public=True):

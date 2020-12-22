@@ -74,15 +74,38 @@ nav ul li a, nav ul li b, header .action {
   min-height: 80px;
 }
 
+.content > header h1 {
+  color: #eae9f0;
+  font-size: 3.5em;
+  flex: auto;
+  margin: 0rem 0rem 0.25rem 2.5rem;
+}
+
 .content > header a {
-  margin: 1rem 0 0.25rem 0;
   color: #190ae7;
 }
 
-.content > header h1 {
+.action-create {
+  font-size: 2em;
   flex: auto;
-  margin: 1rem 0 0.25rem 0;
-  align-items: center;
+  margin: 0rem 4.5rem 0rem 0rem;
+}
+
+.content > header form {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-text {
+  margin: 1rem 0rem 0.25rem 0rem;
+}
+
+.search-button {
+  margin: 1rem 0rem 0.25rem 0rem;
+}
+
+.return {
+  margin: 1rem 0rem 0.25rem 1rem;
 }
 
 .flash {
